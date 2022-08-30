@@ -14,7 +14,7 @@ export function LaunchesSearchForm({
   name,
 }: LaunchesSearchFormProps) {
   const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const isSubmitting = Boolean(transition.submission);
   return (
     <Form aria-labelledby="nameSearchLabel" method="get" action="." key={name}>
       <label id="nameSearchLabel" htmlFor="nameSearch" className="sr-only">
@@ -39,16 +39,16 @@ export function LaunchesSearchForm({
         <button
           type="submit"
           className="relative rounded bg-sky-600 px-4 py-2 hover:bg-sky-700 disabled:bg-sky-600"
-          disabled={isCreating}
+          disabled={isSubmitting}
         >
           <span
             className={`${
-              isCreating ? "opacity-0" : "opacity-100"
+              isSubmitting ? "opacity-0" : "opacity-100"
             } transition-opacity`}
           >
             Search
           </span>
-          {isCreating && (
+          {isSubmitting && (
             <span className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2">
               <Icon icon="ei:spinner" className="h-10 w-10 animate-spin" />
             </span>
@@ -64,5 +64,3 @@ export function LaunchesSearchForm({
     </Form>
   );
 }
-
-// disabled:bg-slate-800 disabled:text-slate-600

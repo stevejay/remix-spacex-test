@@ -70,7 +70,9 @@ test("displays the results in a table", async ({ searchPage }) => {
   await expect(searchPage.nameHeaderButton).toBeVisible();
   await expect(searchPage.dateHeaderButton).toBeVisible();
   await expect(searchPage.actionsHeader).toHaveText("Actions");
-  const resultRow = searchPage.table.locator("role=row").nth(1);
+  const resultRow = searchPage.table.locator(
+    '[data-testid="5fe3af84b3467846b3242161"]'
+  );
   await expect(
     resultRow.locator('role=rowheader[name="CRS-22 & IROSA"]')
   ).toBeVisible();
@@ -105,28 +107,28 @@ test("user can change the sorting field and sorting direction of the results tab
   await searchPage.searchbox.type("star");
 
   await searchPage.searchbox.press("Enter");
-  await expect(searchPage.page).toHaveURL(
-    `${baseURL}/spacex/launches?index=&sortAscending=false&sortField=date_utc&name=star`
-  );
   await expect(searchPage.nameHeader).toHaveAttribute("aria-sort", "none");
   await expect(searchPage.dateHeader).toHaveAttribute(
     "aria-sort",
     "descending"
   );
+  expect(searchPage.page.url()).toMatch(/name=star/);
+  expect(searchPage.page.url()).toMatch(/sortAscending=false/);
+  expect(searchPage.page.url()).toMatch(/sortField=date_utc/);
 
   await searchPage.dateHeaderButton.click();
   await expect(searchPage.nameHeader).toHaveAttribute("aria-sort", "none");
   await expect(searchPage.dateHeader).toHaveAttribute("aria-sort", "ascending");
-  await expect(searchPage.page).toHaveURL(
-    `${baseURL}/spacex/launches?index=&name=star&sortAscending=true&sortField=date_utc`
-  );
+  expect(searchPage.page.url()).toMatch(/name=star/);
+  expect(searchPage.page.url()).toMatch(/sortAscending=true/);
+  expect(searchPage.page.url()).toMatch(/sortField=date_utc/);
 
   await searchPage.nameHeaderButton.click();
   await expect(searchPage.nameHeader).toHaveAttribute("aria-sort", "ascending");
   await expect(searchPage.dateHeader).toHaveAttribute("aria-sort", "none");
-  await expect(searchPage.page).toHaveURL(
-    `${baseURL}/spacex/launches?index=&name=star&sortAscending=true&sortField=name`
-  );
+  expect(searchPage.page.url()).toMatch(/name=star/);
+  expect(searchPage.page.url()).toMatch(/sortAscending=true/);
+  expect(searchPage.page.url()).toMatch(/sortField=name/);
 
   await searchPage.nameHeaderButton.click();
   await expect(searchPage.nameHeader).toHaveAttribute(
@@ -134,7 +136,7 @@ test("user can change the sorting field and sorting direction of the results tab
     "descending"
   );
   await expect(searchPage.dateHeader).toHaveAttribute("aria-sort", "none");
-  await expect(searchPage.page).toHaveURL(
-    `${baseURL}/spacex/launches?index=&name=star&sortAscending=false&sortField=name`
-  );
+  expect(searchPage.page.url()).toMatch(/name=star/);
+  expect(searchPage.page.url()).toMatch(/sortAscending=false/);
+  expect(searchPage.page.url()).toMatch(/sortField=name/);
 });

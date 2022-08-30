@@ -34,7 +34,7 @@ export class LaunchesSearchPage {
   }
 
   async goto() {
-    await this.page.goto(`/spacex/launches`); // TODO remove TLD
+    await this.page.goto(`/spacex/launches`);
   }
 
   async searchFor(searchTerm: string) {
